@@ -83,10 +83,26 @@ Double-click executable launcher to start Omni AI.
 ---
 
 ### Text to Image Generation
+
 - Generate images from text prompts
 - Currently powered by Pollinations AI (prototype provider)
 - Supports direct preview inside Omni AI
 - Download generated images locally
+
+---
+
+## Live Demo 🌍
+
+Omni AI is deployed live:
+
+<https://omni-ai-n66k.onrender.com>
+
+Features:
+
+- AI Chat Assistant
+- Image Prompt Generator
+- Text to Image Generation
+- Local CLI launcher support
 
 ---
 
