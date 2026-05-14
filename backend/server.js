@@ -5,6 +5,7 @@ const cors = require("cors");
 const path = require("path");
 
 const chatRoutes = require("./routes/chatRoutes");
+const visionRoutes = require("./routes/visionRoutes");
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/chat", chatRoutes);
+app.use("/api/vision", visionRoutes);
 
 app.use(
   express.static(

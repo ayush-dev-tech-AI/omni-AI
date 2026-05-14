@@ -86,3 +86,24 @@ pre {
   border-radius: 12px;
   overflow-x: auto;
 }
+.mode-switch {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.vision-box {
+  background: #161616;
+  padding: 30px;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.prompt-result {
+  margin-top: 20px;
+  background: #262626;
+  padding: 20px;
+  border-radius: 14px;
+  text-align: left;
+}
