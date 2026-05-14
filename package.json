@@ -1,0 +1,6 @@
+{
+  "name": "omni-ai",
+  "bin": {
+    "omniai": "./cli/omniai.js"
+  }
+}

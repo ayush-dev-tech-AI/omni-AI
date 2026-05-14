@@ -6,6 +6,8 @@ const path = require("path");
 
 const chatRoutes = require("./routes/chatRoutes");
 const visionRoutes = require("./routes/visionRoutes");
+const { exec } = require("child_process");
+const os = require("os");
 
 const app = express();
 
@@ -31,5 +33,23 @@ const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Server running on ${PORT}`);
-  console.log(`Open http://localhost:${PORT} in your browser`);
+
+  const url = `http://localhost:${PORT}`;
+  const platform = os.platform();
+
+  let command = "";
+
+  if (platform === "win32") {
+    command = `start ${url}`;
+  } else if (platform === "darwin") {
+    command = `open ${url}`;
+  } else {
+    command = `xdg-open ${url}`;
+  }
+
+  exec(command, (err) => {
+    if (err) {
+      console.log("Browser auto-open failed:", err.message);
+    }
+  });
 });
