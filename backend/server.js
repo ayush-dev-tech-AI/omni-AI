@@ -6,6 +6,7 @@ const path = require("path");
 
 const chatRoutes = require("./routes/chatRoutes");
 const visionRoutes = require("./routes/visionRoutes");
+const imageRoutes = require("./routes/imageRoutes");
 const { exec } = require("child_process");
 const os = require("os");
 
@@ -16,6 +17,7 @@ app.use(express.json());
 
 app.use("/api/chat", chatRoutes);
 app.use("/api/vision", visionRoutes);
+app.use("/api/image", imageRoutes);
 
 app.use(
   express.static(

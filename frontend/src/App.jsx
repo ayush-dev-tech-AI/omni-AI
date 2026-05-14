@@ -8,6 +8,8 @@ function App() {
   const [message, setMessage] = useState("");
   const [chat, setChat] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [imagePrompt, setImagePrompt] = useState("");
+  const [generatedImage, setGeneratedImage] = useState("");
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [promptResult, setPromptResult] = useState("");
@@ -86,6 +88,48 @@ function App() {
     navigator.clipboard.writeText(promptResult);
   };
 
+  const generateImage = async () => {
+  if (!imagePrompt.trim()) return;
+
+  setLoading(true);
+
+  try {
+    const res = await axios.post("/api/image", {
+      prompt: imagePrompt
+    });
+
+    console.log(res.data.imageUrl);
+    setGeneratedImage(res.data.imageUrl);
+  } catch {
+    alert("Image generation failed 😭");
+  }
+
+  setLoading(false);
+};
+
+const downloadImage = async () => {
+  if (!generatedImage) return;
+
+  try {
+    const response = await fetch(generatedImage);
+    const blob = await response.blob();
+
+    const blobUrl = window.URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = blobUrl;
+    link.download = `omni-ai-${Date.now()}.png`;
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    window.URL.revokeObjectURL(blobUrl);
+  } catch {
+    alert("Download failed 😭");
+  }
+};
+
   return (
     <div className="app">
       <h1>Omni AI 😼</h1>
@@ -93,6 +137,7 @@ function App() {
       <div className="mode-switch">
         <button onClick={() => setMode("chat")}>Chat</button>
         <button onClick={() => setMode("vision")}>Image Prompt Maker</button>
+        <button onClick={() => setMode("image")}>Text to Image</button>
       </div>
 
       {mode === "chat" && (
@@ -129,6 +174,40 @@ function App() {
         </>
       )}
 
+      {mode === "image" && (
+  <div className="vision-box">
+    <input
+      type="text"
+      placeholder="Enter image prompt..."
+      value={imagePrompt}
+      onChange={(e) => setImagePrompt(e.target.value)}
+    />
+
+    <button onClick={generateImage}>
+      Generate Image
+    </button>
+
+    {loading && <p>Painting pixels... 🎨</p>}
+
+    {generatedImage && (
+  <div className="image-preview">
+    <img
+      src={generatedImage}
+      alt="Generated"
+      className="generated-image"
+      onError={() => {
+    alert("Image provider had a meltdown 😭");
+      }}
+    />
+    <button onClick={downloadImage}>
+      Download Image
+    </button>
+  </div>
+)}
+  </div>
+)}
+
+
       {mode === "vision" && (
         <div className="vision-box">
           <input
@@ -156,3 +235,4 @@ function App() {
 }
 
 export default App;
+

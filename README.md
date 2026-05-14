@@ -82,6 +82,14 @@ Double-click executable launcher to start Omni AI.
 
 ---
 
+### Text to Image Generation
+- Generate images from text prompts
+- Currently powered by Pollinations AI (prototype provider)
+- Supports direct preview inside Omni AI
+- Download generated images locally
+
+---
+
 # Tech Stack 🛠️
 
 ## Frontend
@@ -318,6 +326,30 @@ Body:
 
 ---
 
+## Text to Image
+
+```http
+POST /api/image
+```
+
+Body:
+
+```json
+{
+  "prompt": "cyberpunk samurai cat"
+}
+```
+
+Response:
+
+```json
+{
+  "imageUrl": "generated_image_url"
+}
+```
+
+---
+
 ## Vision
 
 ```http
@@ -336,7 +368,6 @@ image = uploaded_file
 
 Planned upgrades:
 
-- Text → Image generation
 - Image → Image transformation
 - Multi-model switching
 - Chat history
@@ -375,6 +406,10 @@ npm install -g .
 ```
 
 ---
+
+Current text-to-image uses Pollinations API for rapid prototyping.
+Provider may occasionally rate-limit or behave inconsistently.
+Future provider abstraction planned.
 
 # Author
 
